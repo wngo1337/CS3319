@@ -1,0 +1,248 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SHOW DATABASES
+--------------
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| cooltestdb         |
+| flippedclass3      |
+| mysql              |
+| performance_schema |
+| vetoffice          |
+| wngo2assign2db     |
++--------------------+
+7 rows in set (0.00 sec)
+
+--------------
+GRANT USAGE ON *.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DROP USER 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+GRANT ALL PRIVILEGES ON wngo2assign2db.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+FLUSH PRIVILEGES
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SHOW TABLES
+--------------
+
++--------------------------+
+| Tables_in_wngo2assign2db |
++--------------------------+
+| equivalentto             |
+| otheruniversities        |
+| outsidecourses           |
+| westerncourses           |
++--------------------------+
+4 rows in set (0.00 sec)
+
+--------------
+CREATE VIEW firstyearoutside AS SELECT o.coursename AS "outsidecourse", u.officialname, u.nickname, u.city, 
+w.coursename AS "westerncourse"
+FROM equivalentto e INNER JOIN outsidecourses o ON e.coursecode=o.coursecode AND e.universitynumber=o.universitynumber
+AND o.intendedyear=1
+LEFT OUTER JOIN westerncourses w ON e.coursenumber=w.coursenumber
+INNER JOIN otheruniversities u ON e.universitynumber=u.universitynumber
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM firstyearoutside
+--------------
+
++----------------------------------------------+--------------------------------+----------+-----------+---------------------------------------------+
+| outsidecourse                                | officialname                   | nickname | city      | westerncourse                               |
++----------------------------------------------+--------------------------------+----------+-----------+---------------------------------------------+
+| Introduction to Programming                  | University Of Toronto          | UofT     | Toronto   | Intro to Coding using Pascal and Fortran    |
+| Introduction to Programming                  | University Of Toronto          | UofT     | Toronto   | Computer Science Fundamentals I             |
+| Introduction to Programming                  | University Of Toronto          | UofT     | Toronto   | Modern Survival Skills I: Coding Essentials |
+| Advanced Programming                         | University Of Toronto          | UofT     | Toronto   | Computer Science Fundamentals II            |
+| Introduction to Programming for Med students | University Of Toronto          | UofT     | Toronto   | Computer Science Fundamentals I             |
+| Introduction to Databases                    | University Of Toronto          | UofT     | Toronto   | Databases I                                 |
+| Intro to Computer Science                    | University of Waterloo         | Waterloo | Waterloo  | Computer Science Fundamentals I             |
+| Intro Programming                            | University of British Columbia | UBC      | Vancouver | Computer Science Fundamentals I             |
+| Advanced Programming                         | University of British Columbia | UBC      | Vancouver | Computer Science Fundamentals II            |
+| Introduction to Using Data Structures        | Wilfred Laurier University     | Laurier  | Waterloo  | Algorithms and Data Structures              |
++----------------------------------------------+--------------------------------+----------+-----------+---------------------------------------------+
+10 rows in set (0.01 sec)
+
+--------------
+SELECT * FROM firstyearoutside WHERE nickname="UofT" ORDER BY westerncourse ASC
+--------------
+
++----------------------------------------------+-----------------------+----------+---------+---------------------------------------------+
+| outsidecourse                                | officialname          | nickname | city    | westerncourse                               |
++----------------------------------------------+-----------------------+----------+---------+---------------------------------------------+
+| Introduction to Programming                  | University Of Toronto | UofT     | Toronto | Computer Science Fundamentals I             |
+| Introduction to Programming for Med students | University Of Toronto | UofT     | Toronto | Computer Science Fundamentals I             |
+| Advanced Programming                         | University Of Toronto | UofT     | Toronto | Computer Science Fundamentals II            |
+| Introduction to Databases                    | University Of Toronto | UofT     | Toronto | Databases I                                 |
+| Introduction to Programming                  | University Of Toronto | UofT     | Toronto | Intro to Coding using Pascal and Fortran    |
+| Introduction to Programming                  | University Of Toronto | UofT     | Toronto | Modern Survival Skills I: Coding Essentials |
++----------------------------------------------+-----------------------+----------+---------+---------------------------------------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM otheruniversities
+--------------
+
++------------------+--------------------------------+-----------+----------+----------+
+| universitynumber | officialname                   | city      | province | nickname |
++------------------+--------------------------------+-----------+----------+----------+
+|                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+|                4 | University of Waterloo         | Waterloo  | ON       | Waterloo |
+|               24 | Concordia University           | Montreal  | QB       | Concord  |
+|               55 | McMaster University            | Hamilton  | ON       | Mac      |
+|               66 | University of British Columbia | Vancouver | BC       | UBC      |
+|               69 | University of Taking Ls        | Toronto   | ON       | UofL     |
+|               77 | Wilfred Laurier University     | Waterloo  | ON       | Laurier  |
+|               88 | McGill University              | Montreal  | QB       | McGill   |
++------------------+--------------------------------+-----------+----------+----------+
+8 rows in set (0.00 sec)
+
+--------------
+DELETE FROM otheruniversities WHERE nickname LIKE "%cord%"
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+SELECT * FROM otheruniversities
+--------------
+
++------------------+--------------------------------+-----------+----------+----------+
+| universitynumber | officialname                   | city      | province | nickname |
++------------------+--------------------------------+-----------+----------+----------+
+|                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+|                4 | University of Waterloo         | Waterloo  | ON       | Waterloo |
+|               55 | McMaster University            | Hamilton  | ON       | Mac      |
+|               66 | University of British Columbia | Vancouver | BC       | UBC      |
+|               69 | University of Taking Ls        | Toronto   | ON       | UofL     |
+|               77 | Wilfred Laurier University     | Waterloo  | ON       | Laurier  |
+|               88 | McGill University              | Montreal  | QB       | McGill   |
++------------------+--------------------------------+-----------+----------+----------+
+7 rows in set (0.00 sec)
+
+ERROR 1451 (23000) at line 26: Cannot delete or update a parent row: a foreign key constraint fails (`wngo2assign2db`.`outsidecourses`, CONSTRAINT `outsidecourses_ibfk_1` FOREIGN KEY (`universitynumber`) REFERENCES `otheruniversities` (`universitynumber`))
+--------------
+DELETE FROM otheruniversities WHERE province="ON"
+--------------
+
+--------------
+SELECT * FROM otheruniversities
+--------------
+
++------------------+--------------------------------+-----------+----------+----------+
+| universitynumber | officialname                   | city      | province | nickname |
++------------------+--------------------------------+-----------+----------+----------+
+|                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+|                4 | University of Waterloo         | Waterloo  | ON       | Waterloo |
+|               55 | McMaster University            | Hamilton  | ON       | Mac      |
+|               66 | University of British Columbia | Vancouver | BC       | UBC      |
+|               69 | University of Taking Ls        | Toronto   | ON       | UofL     |
+|               77 | Wilfred Laurier University     | Waterloo  | ON       | Laurier  |
+|               88 | McGill University              | Montreal  | QB       | McGill   |
++------------------+--------------------------------+-----------+----------+----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM outsidecourses, otheruniversities 
+WHERE outsidecourses.universitynumber=otheruniversities.universitynumber
+--------------
+
++------------+----------------------------------------------+--------------+--------+------------------+------------------+--------------------------------+-----------+----------+----------+
+| coursecode | coursename                                   | intendedyear | weight | universitynumber | universitynumber | officialname                   | city      | province | nickname |
++------------+----------------------------------------------+--------------+--------+------------------+------------------+--------------------------------+-----------+----------+----------+
+| CompSci021 | Packages                                     |            1 |    0.5 |                2 |                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+| CompSci022 | Introduction to Programming                  |            1 |    0.5 |                2 |                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+| CompSci023 | Advanced Programming                         |            1 |    0.5 |                2 |                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+| CompSci033 | Introduction to Programming for Med students |            1 |    0.5 |                2 |                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+| CompSci222 | Introduction to Databases                    |            1 |    1.0 |                2 |                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+| CompSci011 | Intro to Computer Science                    |            1 |    0.5 |                4 |                4 | University of Waterloo         | Waterloo  | ON       | Waterloo |
+| CompSci123 | Using UNIX                                   |            2 |    0.5 |                4 |                4 | University of Waterloo         | Waterloo  | ON       | Waterloo |
+| CompSci333 | Graphics                                     |            3 |    0.5 |               55 |               55 | McMaster University            | Hamilton  | ON       | Mac      |
+| CompSci444 | Networks                                     |            4 |    0.5 |               55 |               55 | McMaster University            | Hamilton  | ON       | Mac      |
+| CompSci021 | Intro Programming                            |            1 |    1.0 |               66 |               66 | University of British Columbia | Vancouver | BC       | UBC      |
+| CompSci022 | Advanced Programming                         |            1 |    0.5 |               66 |               66 | University of British Columbia | Vancouver | BC       | UBC      |
+| CompSci319 | Using Databases                              |            3 |    0.5 |               66 |               66 | University of British Columbia | Vancouver | BC       | UBC      |
+| CompSci007 | Advanced Taking a Fat L                      |            4 |    1.0 |               69 |               69 | University of Taking Ls        | Toronto   | ON       | UofL     |
+| CompSci069 | Intro to Taking a Fat L                      |            1 |    0.5 |               69 |               69 | University of Taking Ls        | Toronto   | ON       | UofL     |
+| CompSci022 | Using Packages                               |            1 |    0.5 |               77 |               77 | Wilfred Laurier University     | Waterloo  | ON       | Laurier  |
+| CompSci101 | Introduction to Using Data Structures        |            1 |    0.5 |               77 |               77 | Wilfred Laurier University     | Waterloo  | ON       | Laurier  |
++------------+----------------------------------------------+--------------+--------+------------------+------------------+--------------------------------+-----------+----------+----------+
+16 rows in set (0.00 sec)
+
+--------------
+DELETE FROM outsidecourses WHERE outsidecourses.universitynumber in (SELECT universitynumber FROM otheruniversities 
+WHERE city="Waterloo")
+--------------
+
+Query OK, 4 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM outsidecourses, otheruniversities 
+WHERE outsidecourses.universitynumber=otheruniversities.universitynumber
+--------------
+
++------------+----------------------------------------------+--------------+--------+------------------+------------------+--------------------------------+-----------+----------+----------+
+| coursecode | coursename                                   | intendedyear | weight | universitynumber | universitynumber | officialname                   | city      | province | nickname |
++------------+----------------------------------------------+--------------+--------+------------------+------------------+--------------------------------+-----------+----------+----------+
+| CompSci021 | Packages                                     |            1 |    0.5 |                2 |                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+| CompSci022 | Introduction to Programming                  |            1 |    0.5 |                2 |                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+| CompSci023 | Advanced Programming                         |            1 |    0.5 |                2 |                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+| CompSci033 | Introduction to Programming for Med students |            1 |    0.5 |                2 |                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+| CompSci222 | Introduction to Databases                    |            1 |    1.0 |                2 |                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+| CompSci333 | Graphics                                     |            3 |    0.5 |               55 |               55 | McMaster University            | Hamilton  | ON       | Mac      |
+| CompSci444 | Networks                                     |            4 |    0.5 |               55 |               55 | McMaster University            | Hamilton  | ON       | Mac      |
+| CompSci021 | Intro Programming                            |            1 |    1.0 |               66 |               66 | University of British Columbia | Vancouver | BC       | UBC      |
+| CompSci022 | Advanced Programming                         |            1 |    0.5 |               66 |               66 | University of British Columbia | Vancouver | BC       | UBC      |
+| CompSci319 | Using Databases                              |            3 |    0.5 |               66 |               66 | University of British Columbia | Vancouver | BC       | UBC      |
+| CompSci007 | Advanced Taking a Fat L                      |            4 |    1.0 |               69 |               69 | University of Taking Ls        | Toronto   | ON       | UofL     |
+| CompSci069 | Intro to Taking a Fat L                      |            1 |    0.5 |               69 |               69 | University of Taking Ls        | Toronto   | ON       | UofL     |
++------------+----------------------------------------------+--------------+--------+------------------+------------------+--------------------------------+-----------+----------+----------+
+12 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM firstyearoutside
+--------------
+
++----------------------------------------------+--------------------------------+----------+-----------+---------------------------------------------+
+| outsidecourse                                | officialname                   | nickname | city      | westerncourse                               |
++----------------------------------------------+--------------------------------+----------+-----------+---------------------------------------------+
+| Introduction to Programming                  | University Of Toronto          | UofT     | Toronto   | Intro to Coding using Pascal and Fortran    |
+| Introduction to Programming                  | University Of Toronto          | UofT     | Toronto   | Computer Science Fundamentals I             |
+| Introduction to Programming                  | University Of Toronto          | UofT     | Toronto   | Modern Survival Skills I: Coding Essentials |
+| Advanced Programming                         | University Of Toronto          | UofT     | Toronto   | Computer Science Fundamentals II            |
+| Introduction to Programming for Med students | University Of Toronto          | UofT     | Toronto   | Computer Science Fundamentals I             |
+| Introduction to Databases                    | University Of Toronto          | UofT     | Toronto   | Databases I                                 |
+| Intro Programming                            | University of British Columbia | UBC      | Vancouver | Computer Science Fundamentals I             |
+| Advanced Programming                         | University of British Columbia | UBC      | Vancouver | Computer Science Fundamentals II            |
++----------------------------------------------+--------------------------------+----------+-----------+---------------------------------------------+
+8 rows in set (0.00 sec)
+
+Bye

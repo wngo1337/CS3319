@@ -1,0 +1,517 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SHOW DATABASES
+--------------
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| cooltestdb         |
+| flippedclass3      |
+| mysql              |
+| performance_schema |
+| vetoffice          |
+| wngo2assign2db     |
++--------------------+
+7 rows in set (0.01 sec)
+
+--------------
+GRANT USAGE ON *.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DROP USER 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+GRANT ALL PRIVILEGES ON wngo2assign2db.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+FLUSH PRIVILEGES
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SHOW TABLES
+--------------
+
++--------------------------+
+| Tables_in_wngo2assign2db |
++--------------------------+
+| equivalentto             |
+| otheruniversities        |
+| outsidecourses           |
+| westerncourses           |
++--------------------------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM otheruniversities
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+LOAD DATA LOCAL INFILE "loaddatafall2020.sql" INTO TABLE otheruniversities
+FIELDS TERMINATED BY ","
+LINES TERMINATED BY "\n"
+--------------
+
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Deleted: 0  Skipped: 0  Warnings: 0
+
+--------------
+SELECT * FROM otheruniversities
+--------------
+
++------------------+--------------------------------+-----------+----------+----------+
+| universitynumber | officialname                   | city      | province | nickname |
++------------------+--------------------------------+-----------+----------+----------+
+|                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+|                4 | University of Waterloo         | Waterloo  | ON       | Waterloo |
+|               24 | Concordia University           | Montreal  | QB       | Concord  |
+|               55 | McMaster University            | Hamilton  | ON       | Mac      |
+|               66 | University of British Columbia | Vancouver | BC       | UBC      |
+|               77 | Wilfred Laurier University     | Waterloo  | ON       | Laurier  |
+|               88 | McGill University              | Montreal  | QB       | McGill   |
++------------------+--------------------------------+-----------+----------+----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM westerncourses
+--------------
+
+Empty set (0.01 sec)
+
+--------------
+INSERT INTO westerncourses VALUES("cs1026", "Computer Science Fundamentals I", 0.5, "A/B")
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO westerncourses VALUES("cs1027", "Computer Science Fundamentals II", 0.5, "A/B")
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO westerncourses VALUES("cs2210", "Algorithms and Data Structures", 1.0, "A/B")
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO westerncourses VALUES("cs3319", "Databases I", 0.5, "A/B")
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO westerncourses VALUES("cs2120", "Modern Survival Skills I: Coding Essentials", 0.5, "A/B")
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO westerncourses VALUES("cs4490", "Thesis", 0.5, "Z")
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO westerncourses VALUES("cs0020", "Intro to Coding using Pascal and Fortran", 1.0, "")
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO westerncourses VALUES("kf1337", "Intro to Kung Fu", 0.5, "A/B")
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+SELECT * FROM westerncourses
+--------------
+
++--------------+---------------------------------------------+--------+--------+
+| coursenumber | coursename                                  | weight | suffix |
++--------------+---------------------------------------------+--------+--------+
+| cs0020       | Intro to Coding using Pascal and Fortran    |    1.0 |        |
+| cs1026       | Computer Science Fundamentals I             |    0.5 | A/B    |
+| cs1027       | Computer Science Fundamentals II            |    0.5 | A/B    |
+| cs2120       | Modern Survival Skills I: Coding Essentials |    0.5 | A/B    |
+| cs2210       | Algorithms and Data Structures              |    1.0 | A/B    |
+| cs3319       | Databases I                                 |    0.5 | A/B    |
+| cs4490       | Thesis                                      |    0.5 | Z      |
+| kf1337       | Intro to Kung Fu                            |    0.5 | A/B    |
++--------------+---------------------------------------------+--------+--------+
+8 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM otheruniversities
+--------------
+
++------------------+--------------------------------+-----------+----------+----------+
+| universitynumber | officialname                   | city      | province | nickname |
++------------------+--------------------------------+-----------+----------+----------+
+|                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+|                4 | University of Waterloo         | Waterloo  | ON       | Waterloo |
+|               24 | Concordia University           | Montreal  | QB       | Concord  |
+|               55 | McMaster University            | Hamilton  | ON       | Mac      |
+|               66 | University of British Columbia | Vancouver | BC       | UBC      |
+|               77 | Wilfred Laurier University     | Waterloo  | ON       | Laurier  |
+|               88 | McGill University              | Montreal  | QB       | McGill   |
++------------------+--------------------------------+-----------+----------+----------+
+7 rows in set (0.00 sec)
+
+--------------
+INSERT INTO otheruniversities VALUES(69, "University of Taking Ls", "Toronto", "ON", "UofL")
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM otheruniversities
+--------------
+
++------------------+--------------------------------+-----------+----------+----------+
+| universitynumber | officialname                   | city      | province | nickname |
++------------------+--------------------------------+-----------+----------+----------+
+|                2 | University Of Toronto          | Toronto   | ON       | UofT     |
+|                4 | University of Waterloo         | Waterloo  | ON       | Waterloo |
+|               24 | Concordia University           | Montreal  | QB       | Concord  |
+|               55 | McMaster University            | Hamilton  | ON       | Mac      |
+|               66 | University of British Columbia | Vancouver | BC       | UBC      |
+|               69 | University of Taking Ls        | Toronto   | ON       | UofL     |
+|               77 | Wilfred Laurier University     | Waterloo  | ON       | Laurier  |
+|               88 | McGill University              | Montreal  | QB       | McGill   |
++------------------+--------------------------------+-----------+----------+----------+
+8 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM outsidecourses
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci022", "Introduction to Programming", 1, 0.5, 2)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci033", "Introduction to Programming for Med students", 3, 0.5, 2)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci021", "Packages", 1, 0.5, 2)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci222", "Introduction to Databases", 2, 1.0, 2)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci023", "Advanced Programming", 1, 0.5, 2)
+--------------
+
+Query OK, 1 row affected (0.14 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci011", "Intro to Computer Science", 2, 0.5, 4)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci123", "Using UNIX", 2, 0.5, 4)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci021", "Intro Programming", 1, 1.0, 66)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci022", "Advanced Programming", 1, 0.5, 66)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci319", "Using Databases", 3, 0.5, 66)
+--------------
+
+Query OK, 1 row affected (0.10 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci333", "Graphics", 3, 0.5, 55)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci444", "Networks", 4, 0.5, 55)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci022", "Using Packages", 1, 0.5, 77)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci101", "Introduction to Using Data Structures", 2, 0.5, 77)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci069", "Intro to Taking a Fat L", 1, 0.5, 69)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO outsidecourses VALUES("CompSci007", "Advanced Taking a Fat L", 4, 1.0, 69)
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+SELECT * FROM outsidecourses
+--------------
+
++------------+----------------------------------------------+--------------+--------+------------------+
+| coursecode | coursename                                   | intendedyear | weight | universitynumber |
++------------+----------------------------------------------+--------------+--------+------------------+
+| CompSci007 | Advanced Taking a Fat L                      |            4 |    1.0 |               69 |
+| CompSci011 | Intro to Computer Science                    |            2 |    0.5 |                4 |
+| CompSci021 | Packages                                     |            1 |    0.5 |                2 |
+| CompSci021 | Intro Programming                            |            1 |    1.0 |               66 |
+| CompSci022 | Introduction to Programming                  |            1 |    0.5 |                2 |
+| CompSci022 | Advanced Programming                         |            1 |    0.5 |               66 |
+| CompSci022 | Using Packages                               |            1 |    0.5 |               77 |
+| CompSci023 | Advanced Programming                         |            1 |    0.5 |                2 |
+| CompSci033 | Introduction to Programming for Med students |            3 |    0.5 |                2 |
+| CompSci069 | Intro to Taking a Fat L                      |            1 |    0.5 |               69 |
+| CompSci101 | Introduction to Using Data Structures        |            2 |    0.5 |               77 |
+| CompSci123 | Using UNIX                                   |            2 |    0.5 |                4 |
+| CompSci222 | Introduction to Databases                    |            2 |    1.0 |                2 |
+| CompSci319 | Using Databases                              |            3 |    0.5 |               66 |
+| CompSci333 | Graphics                                     |            3 |    0.5 |               55 |
+| CompSci444 | Networks                                     |            4 |    0.5 |               55 |
++------------+----------------------------------------------+--------------+--------+------------------+
+16 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM equivalentto
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs1026", "CompSci022", 2, "2015-05-22")
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs1026", "CompSci033", 2, "2013-01-02")
+--------------
+
+Query OK, 1 row affected (0.04 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs1026", "CompSci011", 4, "1997-02-09")
+--------------
+
+Query OK, 1 row affected (0.09 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs1026", "CompSci021", 66, "2010-01-12")
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs1027", "CompSci023", 2, "2017-06-22")
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs1027", "CompSci022", 66, "2019-09-01")
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs2210", "CompSci101", 77, "1998-07-12")
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs3319", "CompSci222", 2, "1990-09-13")
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs3319", "CompSci319", 66, "1987-09-21")
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs2120", "CompSci022", 2, "2018-12-10")
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO equivalentto VALUES("cs0020", "CompSci022", 2, "1999-09-17")
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+SELECT * FROM equivalentto
+--------------
+
++--------------+------------+------------------+--------------+
+| coursenumber | coursecode | universitynumber | decisiondate |
++--------------+------------+------------------+--------------+
+| cs0020       | CompSci022 |                2 | 1999-09-17   |
+| cs1026       | CompSci011 |                4 | 1997-02-09   |
+| cs1026       | CompSci021 |               66 | 2010-01-12   |
+| cs1026       | CompSci022 |                2 | 2015-05-22   |
+| cs1026       | CompSci033 |                2 | 2013-01-02   |
+| cs1027       | CompSci022 |               66 | 2019-09-01   |
+| cs1027       | CompSci023 |                2 | 2017-06-22   |
+| cs2120       | CompSci022 |                2 | 2018-12-10   |
+| cs2210       | CompSci101 |               77 | 1998-07-12   |
+| cs3319       | CompSci222 |                2 | 1990-09-13   |
+| cs3319       | CompSci319 |               66 | 1987-09-21   |
++--------------+------------+------------------+--------------+
+11 rows in set (0.00 sec)
+
+--------------
+UPDATE equivalentto SET decisiondate="2018-09-19" WHERE coursenumber="cs0020" AND coursecode="CompSci022" AND 
+universitynumber=2
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+SELECT * FROM equivalentto
+--------------
+
++--------------+------------+------------------+--------------+
+| coursenumber | coursecode | universitynumber | decisiondate |
++--------------+------------+------------------+--------------+
+| cs0020       | CompSci022 |                2 | 2018-09-19   |
+| cs1026       | CompSci011 |                4 | 1997-02-09   |
+| cs1026       | CompSci021 |               66 | 2010-01-12   |
+| cs1026       | CompSci022 |                2 | 2015-05-22   |
+| cs1026       | CompSci033 |                2 | 2013-01-02   |
+| cs1027       | CompSci022 |               66 | 2019-09-01   |
+| cs1027       | CompSci023 |                2 | 2017-06-22   |
+| cs2120       | CompSci022 |                2 | 2018-12-10   |
+| cs2210       | CompSci101 |               77 | 1998-07-12   |
+| cs3319       | CompSci222 |                2 | 1990-09-13   |
+| cs3319       | CompSci319 |               66 | 1987-09-21   |
++--------------+------------+------------------+--------------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM outsidecourses
+--------------
+
++------------+----------------------------------------------+--------------+--------+------------------+
+| coursecode | coursename                                   | intendedyear | weight | universitynumber |
++------------+----------------------------------------------+--------------+--------+------------------+
+| CompSci007 | Advanced Taking a Fat L                      |            4 |    1.0 |               69 |
+| CompSci011 | Intro to Computer Science                    |            2 |    0.5 |                4 |
+| CompSci021 | Packages                                     |            1 |    0.5 |                2 |
+| CompSci021 | Intro Programming                            |            1 |    1.0 |               66 |
+| CompSci022 | Introduction to Programming                  |            1 |    0.5 |                2 |
+| CompSci022 | Advanced Programming                         |            1 |    0.5 |               66 |
+| CompSci022 | Using Packages                               |            1 |    0.5 |               77 |
+| CompSci023 | Advanced Programming                         |            1 |    0.5 |                2 |
+| CompSci033 | Introduction to Programming for Med students |            3 |    0.5 |                2 |
+| CompSci069 | Intro to Taking a Fat L                      |            1 |    0.5 |               69 |
+| CompSci101 | Introduction to Using Data Structures        |            2 |    0.5 |               77 |
+| CompSci123 | Using UNIX                                   |            2 |    0.5 |                4 |
+| CompSci222 | Introduction to Databases                    |            2 |    1.0 |                2 |
+| CompSci319 | Using Databases                              |            3 |    0.5 |               66 |
+| CompSci333 | Graphics                                     |            3 |    0.5 |               55 |
+| CompSci444 | Networks                                     |            4 |    0.5 |               55 |
++------------+----------------------------------------------+--------------+--------+------------------+
+16 rows in set (0.00 sec)
+
+--------------
+UPDATE outsidecourses SET intendedyear=1 WHERE coursename LIKE "Intro%"
+--------------
+
+Query OK, 4 rows affected (0.00 sec)
+Rows matched: 7  Changed: 4  Warnings: 0
+
+--------------
+SELECT * FROM outsidecourses
+--------------
+
++------------+----------------------------------------------+--------------+--------+------------------+
+| coursecode | coursename                                   | intendedyear | weight | universitynumber |
++------------+----------------------------------------------+--------------+--------+------------------+
+| CompSci007 | Advanced Taking a Fat L                      |            4 |    1.0 |               69 |
+| CompSci011 | Intro to Computer Science                    |            1 |    0.5 |                4 |
+| CompSci021 | Packages                                     |            1 |    0.5 |                2 |
+| CompSci021 | Intro Programming                            |            1 |    1.0 |               66 |
+| CompSci022 | Introduction to Programming                  |            1 |    0.5 |                2 |
+| CompSci022 | Advanced Programming                         |            1 |    0.5 |               66 |
+| CompSci022 | Using Packages                               |            1 |    0.5 |               77 |
+| CompSci023 | Advanced Programming                         |            1 |    0.5 |                2 |
+| CompSci033 | Introduction to Programming for Med students |            1 |    0.5 |                2 |
+| CompSci069 | Intro to Taking a Fat L                      |            1 |    0.5 |               69 |
+| CompSci101 | Introduction to Using Data Structures        |            1 |    0.5 |               77 |
+| CompSci123 | Using UNIX                                   |            2 |    0.5 |                4 |
+| CompSci222 | Introduction to Databases                    |            1 |    1.0 |                2 |
+| CompSci319 | Using Databases                              |            3 |    0.5 |               66 |
+| CompSci333 | Graphics                                     |            3 |    0.5 |               55 |
+| CompSci444 | Networks                                     |            4 |    0.5 |               55 |
++------------+----------------------------------------------+--------------+--------+------------------+
+16 rows in set (0.00 sec)
+
+Bye
